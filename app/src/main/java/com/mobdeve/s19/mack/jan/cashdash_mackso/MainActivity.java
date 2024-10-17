@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialize views
         userGreeting = findViewById(R.id.userGreeting);
         budgetText = findViewById(R.id.budgetText);
         btnBills = findViewById(R.id.btnViewBills);
@@ -61,21 +60,6 @@ public class MainActivity extends AppCompatActivity {
         // Set default button states
         btnBills.setEnabled(false);  // Bills are selected by default
         btnExpenses.setEnabled(true);
-
-        // Button listeners
-        btnBills.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleView(true);
-            }
-        });
-
-        btnExpenses.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleView(false);
-            }
-        });
 
         btnBills.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,4 +105,18 @@ public class MainActivity extends AppCompatActivity {
         }
         itemAdapter.notifyDataSetChanged(); // Notify the adapter of data changes
     }
-}
+
+    private void updateButtonAppearance(boolean isViewingBills) {
+        if (isViewingBills) {
+            btnBills.setEnabled(false); // Disable the button to indicate it's selected
+            btnExpenses.setEnabled(true); // Enable the expenses button
+        } else {
+            btnBills.setEnabled(true); // Enable the bills button
+            btnExpenses.setEnabled(false); // Disable the button to indicate it's selected
+        }
+        // Set backgrounds based on enabled state; this will use the selector
+        btnBills.setBackgroundResource(isViewingBills ? R.drawable.button_pressed : R.color.primaryColor);
+        btnExpenses.setBackgroundResource(isViewingBills ? R.color.primaryColor : R.drawable.button_pressed);
+    }
+    }
+
