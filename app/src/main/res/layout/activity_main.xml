@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/backgroundColor">
+
+    <!-- Hello User Greeting -->
+    <TextView
+        android:id="@+id/userGreeting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello, User"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/textColorSecondary" />
+
+    <!-- Budget Display -->
+    <RelativeLayout
+        android:id="@+id/budgetPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userGreeting"
+        android:layout_marginTop="20dp"
+        android:padding="10dp"
+        android:background="@color/cardBackgroundColor">
+
+        <TextView
+            android:id="@+id/budgetText"
+            android:layout_width="127dp"
+            android:layout_height="58dp"
+            android:text="₱0.00"
+            android:textColor="@color/textColorSecondary"
+            android:textSize="30sp" />
+
+        <!-- Edit Budget Button -->
+        <Button
+            android:id="@+id/btnEditBudget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:background="?attr/selectableItemBackground"
+            android:text="Edit"
+            android:drawableLeft="@android:drawable/ic_menu_edit" />
+    </RelativeLayout>
+
+    <!-- Due Date Notifications Tab -->
+    <TextView
+        android:id="@+id/dueDateNotification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/budgetPanel"
+        android:text="Due Date Notifications"
+        android:textSize="20sp"
+        android:textColor="@color/textColorSecondary"
+        android:layout_marginTop="16dp" />
+
+    <!-- Buttons: View Bills and View Expenses -->
+    <LinearLayout
+        android:id="@+id/buttonPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dueDateNotification"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/btnViewBills"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button"
+            android:text="View Bills"
+            android:textColor="@color/textColorPrimary"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/btnViewExpenses"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_button"
+            android:text="View Expenses"
+            android:textColor="@color/textColorPrimary"
+            android:layout_marginStart="8dp" />
+    </LinearLayout>
+
+    <!-- Notifications Box (Expenses/Bills) -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonPanel"
+        android:layout_marginBottom="16dp"
+        android:padding="10dp" />
+
+    <!-- Add New Entry (+) Button -->
+    <Button
+        android:id="@+id/btnAddNew"
+        android:layout_width="54dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:background="@android:drawable/ic_input_add" />
+</RelativeLayout>

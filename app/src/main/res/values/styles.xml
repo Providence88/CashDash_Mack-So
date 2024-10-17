@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base app theme -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorPrimaryDark">@color/primaryDarkColor</item>
+        <item name="colorAccent">@color/accentColor</item>
+        <item name="android:windowBackground">@color/backgroundColor</item>
+    </style>
+
+    <!-- Button Style -->
+    <style name="ButtonStyle">
+        <item name="android:background">@drawable/button_selector</item>
+        <item name="android:textColor">@color/textColorPrimary</item>
+    </style>
+
+    <!-- Text Style for Headings -->
+    <style name="HeadingText">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/textColorSecondary</item>
+    </style>
+
+    <!-- Style for the budget panel -->
+    <style name="PanelStyle">
+        <item name="android:background">@drawable/rounded_button</item>
+        <item name="android:padding">10dp</item>
+    </style>
+</resources>
