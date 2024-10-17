@@ -4,17 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:background="@color/backgroundColor">
+    android:background="@android:color/white">
 
     <!-- Hello User Greeting -->
     <TextView
         android:id="@+id/userGreeting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello, User"
+        android:text="Hello, Jan"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@color/textColorSecondary" />
+        android:textColor="@android:color/holo_green_dark" />
 
     <!-- Budget Display -->
     <RelativeLayout
@@ -24,14 +24,14 @@
         android:layout_below="@id/userGreeting"
         android:layout_marginTop="20dp"
         android:padding="10dp"
-        android:background="@color/cardBackgroundColor">
+        android:background="@color/primaryDarkColor">
 
         <TextView
             android:id="@+id/budgetText"
-            android:layout_width="127dp"
-            android:layout_height="58dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="₱0.00"
-            android:textColor="@color/textColorSecondary"
+            android:textColor="@android:color/white"
             android:textSize="30sp" />
 
         <!-- Edit Budget Button -->
@@ -42,6 +42,7 @@
             android:layout_alignParentEnd="true"
             android:background="?attr/selectableItemBackground"
             android:text="Edit"
+            android:textColor="@android:color/white"
             android:drawableLeft="@android:drawable/ic_menu_edit" />
     </RelativeLayout>
 
@@ -53,8 +54,9 @@
         android:layout_below="@id/budgetPanel"
         android:text="Due Date Notifications"
         android:textSize="20sp"
-        android:textColor="@color/textColorSecondary"
-        android:layout_marginTop="16dp" />
+        android:textColor="@color/primaryDarkColor"
+        android:layout_marginTop="16dp"
+        android:background="#F0F0F0" />
 
     <!-- Buttons: View Bills and View Expenses -->
     <LinearLayout
@@ -64,16 +66,17 @@
         android:layout_below="@id/dueDateNotification"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="16dp"
+        android:background="#F0F0F0">
 
         <Button
             android:id="@+id/btnViewBills"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/rounded_button"
+            android:background="@color/primaryDarkColor"
             android:text="View Bills"
-            android:textColor="@color/textColorPrimary"
+            android:textColor="@android:color/white"
             android:layout_marginEnd="8dp" />
 
         <Button
@@ -81,9 +84,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/rounded_button"
+            android:background="@color/primaryDarkColor"
             android:text="View Expenses"
-            android:textColor="@color/textColorPrimary"
+            android:textColor="@android:color/white"
             android:layout_marginStart="8dp" />
     </LinearLayout>
 
@@ -93,8 +96,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/buttonPanel"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:background="#F0F0F0" />
 
     <!-- Add New Entry (+) Button -->
     <Button

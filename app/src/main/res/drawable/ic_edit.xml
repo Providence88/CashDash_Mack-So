@@ -5,6 +5,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground"
-        android:drawableLeft="@drawable/ic_edit"
+        android:textColor="@color/primaryDarkColor"
         android:text="Edit" />
 </selector>
