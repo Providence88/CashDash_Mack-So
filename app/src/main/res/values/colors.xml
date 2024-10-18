@@ -12,4 +12,5 @@
     <!-- Background colors -->
     <color name="backgroundColor">#FFFFFF</color>  <!-- White background -->
     <color name="cardBackgroundColor">#F5F5F5</color> <!-- Light grey background for panels -->
+    <color name="overlay_gray">#80000000</color> <!-- Semi-transparent gray -->
 </resources>

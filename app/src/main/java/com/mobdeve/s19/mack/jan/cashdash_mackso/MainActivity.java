@@ -6,12 +6,16 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -19,10 +23,15 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView userGreeting;
     private TextView budgetText;
-    private Button btnBills, btnExpenses, btnEditBudget, btnAddNew;
+    private Button btnBills, btnExpenses, btnEditBudget;
+    private FloatingActionButton btnAddNew;
     private RecyclerView recyclerView;
     private ItemAdapter itemAdapter;
     private ArrayList<Item> itemList;
+
+    private View overlay;
+    private LinearLayout addPanel;
+    private Button btnAddBill, btnAddExpense;
 
     private SharedPreferences sharedPreferences;
     private static final String PREFS_NAME = "FinanceAppPrefs";
@@ -39,6 +48,11 @@ public class MainActivity extends AppCompatActivity {
         btnEditBudget = findViewById(R.id.btnEditBudget);
         btnAddNew = findViewById(R.id.btnAddNew);
         recyclerView = findViewById(R.id.recyclerView);
+
+        overlay = findViewById(R.id.overlay);
+        addPanel = findViewById(R.id.addPanel);
+        btnAddBill = findViewById(R.id.btnAddBill);
+        btnAddExpense = findViewById(R.id.btnAddExpense);
 
         // Set up SharedPreferences
         sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
@@ -77,6 +91,40 @@ public class MainActivity extends AppCompatActivity {
                 setButtonColors(false);  // Expenses selected
             }
         });
+
+        // Floating Action Button (Add New)
+        btnAddNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleAddPanel(true);
+            }
+        });
+
+        // Add Bill Button
+        btnAddBill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Add Bill clicked", Toast.LENGTH_SHORT).show();
+                toggleAddPanel(false);  // Close panel after adding
+            }
+        });
+
+        // Add Expense Button
+        btnAddExpense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Add Expense clicked", Toast.LENGTH_SHORT).show();
+                toggleAddPanel(false);  // Close panel after adding
+            }
+        });
+
+        // Clicking the overlay hides the panel
+        overlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleAddPanel(false);
+            }
+        });
     }
 
     private void loadDummyData() {
@@ -103,6 +151,17 @@ public class MainActivity extends AppCompatActivity {
         } else {
             btnBills.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, android.R.color.darker_gray)));
             btnExpenses.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.primaryDarkColor)));
+        }
+    }
+
+
+    private void toggleAddPanel(boolean show) {
+        if (show) {
+            overlay.setVisibility(View.VISIBLE);
+            addPanel.setVisibility(View.VISIBLE);
+        } else {
+            overlay.setVisibility(View.GONE);
+            addPanel.setVisibility(View.GONE);
         }
     }
 }

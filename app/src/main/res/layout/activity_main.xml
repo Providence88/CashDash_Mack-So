@@ -103,12 +103,55 @@
         android:background="#F0F0F0" />
 
     <!-- Add New Entry (+) Button -->
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAddNew"
-        android:layout_width="54dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:background="@android:drawable/ic_input_add" />
+        android:layout_marginBottom="16dp"
+        android:src="@android:drawable/ic_input_add"
+        android:contentDescription="Add Button"
+        app:backgroundTint="@color/primaryDarkColor"/>
+
+    <!-- Background Overlay (Initially hidden) -->
+    <View
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/overlay_gray"
+        android:visibility="gone"/>
+
+    <!-- Popup Panel for Add Bill and Add Expense -->
+    <LinearLayout
+        android:id="@+id/addPanel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:background="@drawable/rounded_panel_bg"
+        android:gravity="center"
+        android:elevation="8dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:layout_centerInParent="true">
+
+        <Button
+            android:id="@+id/btnAddBill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Bill"
+            android:layout_marginBottom="16dp"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/primaryDarkColor"/>
+
+        <Button
+            android:id="@+id/btnAddExpense"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Expense"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@color/primaryDarkColor"/>
+    </LinearLayout>
+
 </RelativeLayout>

@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">CashDash-Mack&amp;So</string>
+
+    <string-array name="bill_categories">
+        <item>Utilities</item>
+        <item>Rent</item>
+        <item>Subscription</item>
+        <item>Loan</item>
+    </string-array>
+
+    <string-array name="expense_categories">
+        <item>Groceries</item>
+        <item>Fuel</item>
+        <item>Entertainment</item>
+        <item>Others</item>
+    </string-array>
 </resources>

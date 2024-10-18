@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@android:color/white">
+
+    <!-- Title -->
+    <EditText
+        android:id="@+id/etBillTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Bill Title"
+        android:textSize="24sp"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <!-- Input Fields -->
+    <EditText
+        android:id="@+id/etBillDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Description"
+        android:layout_below="@id/etBillTitle"
+        android:layout_marginTop="16dp"
+        android:padding="8dp"
+        android:background="@android:color/darker_gray" />
+
+    <EditText
+        android:id="@+id/etBillAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Amount"
+        android:inputType="numberDecimal"
+        android:layout_below="@id/etBillDescription"
+        android:layout_marginTop="12dp"
+        android:padding="8dp"
+        android:background="@android:color/darker_gray" />
+
+    <EditText
+        android:id="@+id/etDateReceived"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Date Received"
+        android:inputType="date"
+        android:layout_below="@id/etBillAmount"
+        android:layout_marginTop="12dp"
+        android:padding="8dp"
+        android:background="@android:color/darker_gray" />
+
+    <EditText
+        android:id="@+id/etDateDue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Date Due"
+        android:inputType="date"
+        android:layout_below="@id/etDateReceived"
+        android:layout_marginTop="12dp"
+        android:padding="8dp"
+        android:background="@android:color/darker_gray" />
+
+    <!-- Category Dropdown -->
+    <Spinner
+        android:id="@+id/spinnerCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etDateDue"
+        android:layout_marginTop="12dp"
+        android:entries="@array/bill_categories"
+        android:padding="8dp"
+        android:background="@android:color/darker_gray" />
+
+    <!-- Save and Cancel Buttons -->
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:background="@android:color/holo_red_dark"
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="16dp" />
+
+    <Button
+        android:id="@+id/btnSaveBill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:background="@android:color/holo_green_dark"
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="24dp"
+        android:layout_marginEnd="16dp" />
+</RelativeLayout>
