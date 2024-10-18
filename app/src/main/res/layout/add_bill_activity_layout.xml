@@ -26,7 +26,7 @@
         android:layout_below="@id/etBillTitle"
         android:layout_marginTop="16dp"
         android:padding="8dp"
-        android:background="@android:color/darker_gray" />
+        android:background="@drawable/edittext_custom_border" />
 
     <EditText
         android:id="@+id/etBillAmount"
@@ -37,7 +37,7 @@
         android:layout_below="@id/etBillDescription"
         android:layout_marginTop="12dp"
         android:padding="8dp"
-        android:background="@android:color/darker_gray" />
+        android:background="@drawable/edittext_custom_border" />
 
     <EditText
         android:id="@+id/etDateReceived"
@@ -48,7 +48,7 @@
         android:layout_below="@id/etBillAmount"
         android:layout_marginTop="12dp"
         android:padding="8dp"
-        android:background="@android:color/darker_gray" />
+        android:background="@drawable/edittext_custom_border" />
 
     <EditText
         android:id="@+id/etDateDue"
@@ -59,7 +59,7 @@
         android:layout_below="@id/etDateReceived"
         android:layout_marginTop="12dp"
         android:padding="8dp"
-        android:background="@android:color/darker_gray" />
+        android:background="@drawable/edittext_custom_border" />
 
     <!-- Category Dropdown -->
     <Spinner
@@ -70,7 +70,7 @@
         android:layout_marginTop="12dp"
         android:entries="@array/bill_categories"
         android:padding="8dp"
-        android:background="@android:color/darker_gray" />
+        android:background="@drawable/edittext_custom_border" />
 
     <!-- Save and Cancel Buttons -->
     <Button

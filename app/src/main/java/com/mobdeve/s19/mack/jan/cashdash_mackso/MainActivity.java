@@ -104,17 +104,21 @@ public class MainActivity extends AppCompatActivity {
         btnAddBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Add Bill clicked", Toast.LENGTH_SHORT).show();
-                toggleAddPanel(false);  // Close panel after adding
+                // Launch AddBillActivity
+                Intent addBillIntent = new Intent(MainActivity.this, AddBillActivity.class);
+                startActivity(addBillIntent);  // Start the AddBillActivity
+                toggleAddPanel(false);  // Close the add panel after launching the activity
             }
         });
 
-        // Add Expense Button
+// Add Expense Button
         btnAddExpense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Add Expense clicked", Toast.LENGTH_SHORT).show();
-                toggleAddPanel(false);  // Close panel after adding
+                // Launch AddExpenseActivity
+                Intent addExpenseIntent = new Intent(MainActivity.this, AddExpenseActivity.class);
+                startActivity(addExpenseIntent);  // Start the AddExpenseActivity
+                toggleAddPanel(false);  // Close the add panel after launching the activity
             }
         });
 
