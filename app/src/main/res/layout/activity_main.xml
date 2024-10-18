@@ -35,28 +35,30 @@
             android:textSize="30sp" />
 
         <!-- Edit Budget Button -->
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnEditBudget"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
             android:layout_alignParentEnd="true"
-            android:background="?attr/selectableItemBackground"
+            android:paddingLeft="12sp"
             android:text="Edit"
-            android:textColor="@android:color/white"
-            android:drawableLeft="@android:drawable/ic_menu_edit" />
+            android:textColor="@android:color/holo_green_dark"
+            android:drawableLeft="@android:drawable/ic_menu_edit"
+            android:background="@drawable/rounded_button_nocolor"/>
     </RelativeLayout>
 
     <!-- Due Date Notifications Tab -->
     <TextView
         android:id="@+id/dueDateNotification"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:layout_below="@id/budgetPanel"
         android:text="Due Date Notifications"
         android:textSize="20sp"
-        android:textColor="@color/primaryDarkColor"
+        android:textColor="@android:color/black"
         android:layout_marginTop="16dp"
-        android:background="#F0F0F0" />
+        android:background="#F0F0F0"
+        android:gravity="center"/>
 
     <!-- Buttons: View Bills and View Expenses -->
     <LinearLayout
@@ -66,28 +68,27 @@
         android:layout_below="@id/dueDateNotification"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="16dp"
-        android:background="#F0F0F0">
+        android:layout_marginTop="16dp">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnViewBills"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/primaryDarkColor"
-        android:text="View Bills"
-        android:textColor="@android:color/black"
-        android:layout_marginEnd="8dp" />
+            android:text="View Bills"
+            android:layout_marginEnd="8dp"
+            android:textColor="@android:color/black"
+            android:background="@drawable/rounded_button"/>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnViewExpenses"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/primaryDarkColor"
-        android:text="View Expenses"
-        android:textColor="@android:color/black"
-        android:layout_marginStart="8dp" />
+            android:text="View Expenses"
+            android:layout_marginStart="8dp"
+            android:textColor="@android:color/black"
+            android:background="@drawable/rounded_button"/>
     </LinearLayout>
 
     <!-- Notifications Box (Expenses/Bills) -->

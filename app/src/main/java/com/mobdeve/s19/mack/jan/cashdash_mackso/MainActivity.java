@@ -1,5 +1,6 @@
 package com.mobdeve.s19.mack.jan.cashdash_mackso;
 
+import android.content.res.ColorStateList;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -57,17 +59,14 @@ public class MainActivity extends AppCompatActivity {
         // Load initial data (default to showing bills)
         loadDummyData();
 
-        // Set default button states
-        btnBills.setEnabled(false);  // Bills are selected by default
-        btnExpenses.setEnabled(true);
+        // Set default button states and colors
+        setButtonColors(true);  // Bills are selected by default
 
         btnBills.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toggleView(true);
-                // Change button appearance based on selection
-                btnBills.setEnabled(false);
-                btnExpenses.setEnabled(true);
+                setButtonColors(true);  // Bills selected
             }
         });
 
@@ -75,48 +74,35 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 toggleView(false);
-                // Change button appearance based on selection
-                btnBills.setEnabled(true);
-                btnExpenses.setEnabled(false);
+                setButtonColors(false);  // Expenses selected
             }
         });
     }
 
     private void loadDummyData() {
-        // Add dummy bills to the list
         itemList.add(new Item("Electricity Bill", "₱4,500.00", "Due: 10/26/2023"));
         itemList.add(new Item("Water Bill", "₱1,200.00", "Due: 10/30/2023"));
         itemAdapter.notifyDataSetChanged();
     }
 
     private void toggleView(boolean viewBills) {
-        itemList.clear(); // Clear the current list to load new data
+        itemList.clear();
         if (viewBills) {
-            btnBills.setEnabled(false);
-            btnExpenses.setEnabled(true);
-            // Load bills
             loadDummyData();
         } else {
-            btnBills.setEnabled(true);
-            btnExpenses.setEnabled(false);
-            // Load expenses
             itemList.add(new Item("Groceries", "₱2,500.00", "Bought: 10/10/2023"));
             itemList.add(new Item("Fuel", "₱3,000.00", "Bought: 10/12/2023"));
         }
-        itemAdapter.notifyDataSetChanged(); // Notify the adapter of data changes
+        itemAdapter.notifyDataSetChanged();
     }
 
-    private void updateButtonAppearance(boolean isViewingBills) {
+    private void setButtonColors(boolean isViewingBills) {
         if (isViewingBills) {
-            btnBills.setEnabled(false); // Disable the button to indicate it's selected
-            btnExpenses.setEnabled(true); // Enable the expenses button
+            btnBills.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.primaryDarkColor)));
+            btnExpenses.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, android.R.color.darker_gray)));
         } else {
-            btnBills.setEnabled(true); // Enable the bills button
-            btnExpenses.setEnabled(false); // Disable the button to indicate it's selected
+            btnBills.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, android.R.color.darker_gray)));
+            btnExpenses.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.primaryDarkColor)));
         }
-        // Set backgrounds based on enabled state; this will use the selector
-        btnBills.setBackgroundResource(isViewingBills ? R.drawable.button_pressed : R.color.primaryColor);
-        btnExpenses.setBackgroundResource(isViewingBills ? R.color.primaryColor : R.drawable.button_pressed);
     }
-    }
-
+}
