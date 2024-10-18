@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:gravity="center">
 
     <!-- Title of the Activity -->
     <TextView
@@ -12,7 +13,8 @@
         android:layout_height="wrap_content"
         android:text="Edit Budget"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_gravity="center" />
 
     <!-- Display current budget amount -->
     <TextView
@@ -20,7 +22,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Current Budget: ₱0.00"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center" />
 
     <!-- Input for new budget amount -->
     <EditText
@@ -29,24 +33,48 @@
         android:layout_height="wrap_content"
         android:hint="Enter new budget amount"
         android:inputType="numberDecimal"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:layout_marginTop="16dp" />
 
-    <!-- Button to save new budget -->
-    <Button
-        android:id="@+id/btnSaveBudget"
+    <!-- Horizontal Layout for Cancel and Confirm Buttons -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save Budget"
-        android:layout_marginTop="16dp"
-        android:background="?attr/colorPrimary"
-        android:textColor="@android:color/white" />
+        android:orientation="horizontal"
+        android:layout_marginTop="24dp">
 
-    <!-- Display due date or notification (optional) -->
+        <!-- Cancel Button -->
+        <Button
+            android:id="@+id/btnCancelBudget"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cancel"
+            android:background="@android:color/holo_red_dark"
+            android:textColor="@android:color/white"
+            android:layout_marginEnd="8dp" />
+
+        <!-- Confirm Button -->
+        <Button
+            android:id="@+id/btnSaveBudget"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Confirm"
+            android:background="@android:color/holo_green_dark"
+            android:textColor="@android:color/white"
+            android:layout_marginStart="8dp" />
+
+    </LinearLayout>
+
+    <!-- Optional: Display due date or notification (optional) -->
     <TextView
         android:id="@+id/itemDueDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Due: MM/DD/YYYY"
         android:textSize="14sp"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center" />
+
 </LinearLayout>

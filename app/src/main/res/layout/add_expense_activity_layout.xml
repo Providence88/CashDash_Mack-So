@@ -14,7 +14,7 @@
         android:textColor="@android:color/black"
         android:textStyle="bold"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" /> <!-- Aligned to the left -->
+        android:layout_alignParentStart="true" />
 
     <!-- Input Fields -->
     <EditText
@@ -56,6 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/etExpenseDate"
         android:layout_marginTop="12dp"
+        android:entries="@array/expense_categories"
         android:padding="8dp"
         android:background="@drawable/edittext_custom_border" />
 
@@ -65,7 +66,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cancel"
-        android:background="@android:color/holo_red_dark"
         android:textColor="@android:color/white"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
