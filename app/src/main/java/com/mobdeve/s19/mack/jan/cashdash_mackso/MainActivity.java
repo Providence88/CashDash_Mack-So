@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -45,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         budgetText = findViewById(R.id.budgetText);
         btnBills = findViewById(R.id.btnViewBills);
         btnExpenses = findViewById(R.id.btnViewExpenses);
-        btnEditBudget = findViewById(R.id.btnEditBudget);
+        btnEditBudget = findViewById(R.id.btnEditBudget); // Edit Budget Button
         btnAddNew = findViewById(R.id.btnAddNew);
         recyclerView = findViewById(R.id.recyclerView);
 
@@ -62,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         String budget = sharedPreferences.getString("budget", "₱0.00");
 
         userGreeting.setText("Hello, " + userName);
-        budgetText.setText(budget);
+        budgetText.setText(String.format("₱%,.2f", Double.parseDouble(budget.replace("₱", "").replace(",", ""))));
 
         // Initialize RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -111,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-// Add Expense Button
+        // Add Expense Button
         btnAddExpense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,6 +128,29 @@ public class MainActivity extends AppCompatActivity {
                 toggleAddPanel(false);
             }
         });
+
+        // Edit Budget Button - Launch EditBudgetActivity
+        btnEditBudget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent editBudgetIntent = new Intent(MainActivity.this, EditBudgetActivity.class);
+                startActivityForResult(editBudgetIntent, 1);  // Start for result with a request code
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {  // Check the request code
+            if (resultCode == RESULT_OK) {
+                // Get the updated budget from SharedPreferences
+                String updatedBudget = sharedPreferences.getString("budget", "₱0.00");
+
+                // Update the budget display in MainActivity
+                budgetText.setText(String.format("₱%,.2f", Double.parseDouble(updatedBudget.replace("₱", "").replace(",", ""))));
+            }
+        }
     }
 
     private void loadDummyData() {
@@ -157,7 +179,6 @@ public class MainActivity extends AppCompatActivity {
             btnExpenses.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.primaryDarkColor)));
         }
     }
-
 
     private void toggleAddPanel(boolean show) {
         if (show) {
