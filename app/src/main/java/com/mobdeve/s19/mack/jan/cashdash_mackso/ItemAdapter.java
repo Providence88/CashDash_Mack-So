@@ -4,14 +4,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
-
     private ArrayList<Item> itemList;
 
     public ItemAdapter(ArrayList<Item> itemList) {
@@ -29,7 +26,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         Item currentItem = itemList.get(position);
-
         holder.itemTitle.setText(currentItem.getTitle());
         holder.itemAmount.setText(currentItem.getAmount());
         holder.itemDueDate.setText(currentItem.getDueDate());
@@ -40,19 +36,19 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
         return itemList.size();
     }
 
-    public static class ItemViewHolder extends RecyclerView.ViewHolder {
+    public void deleteItem(int position) {
+        itemList.remove(position);
+        notifyItemRemoved(position);
+    }
 
-        public TextView itemTitle;
-        public TextView itemAmount;
-        public TextView itemDueDate;
+    public static class ItemViewHolder extends RecyclerView.ViewHolder {
+        public TextView itemTitle, itemAmount, itemDueDate;
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
-
             itemTitle = itemView.findViewById(R.id.itemTitle);
             itemAmount = itemView.findViewById(R.id.itemAmount);
             itemDueDate = itemView.findViewById(R.id.itemDueDate);
         }
     }
 }
-

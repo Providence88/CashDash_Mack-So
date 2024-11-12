@@ -33,34 +33,25 @@ public class EditBudgetActivity extends AppCompatActivity {
         btnSaveBudget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the input, parse it, and format it to Peso
-                String newBudget = editBudgetInput.getText().toString().replace("₱", "").replace(",", "");
-                double budgetValue = Double.parseDouble(newBudget);
-                String formattedBudget = String.format("₱%,.2f", budgetValue);
+                String newBudget = editBudgetInput.getText().toString().replace(",", "");
+                try {
+                    double budgetValue = Double.parseDouble(newBudget);
+                    String formattedBudget = String.format("₱%,.2f", budgetValue);
 
-                // Save the formatted budget to SharedPreferences
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("budget", formattedBudget);
-                editor.apply();
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("budget", formattedBudget);
+                    editor.apply();
 
-                // Set the result and finish the activity
-                setResult(RESULT_OK);
-                finish();
+                    setResult(RESULT_OK);
+                    finish();
+                } catch (NumberFormatException e) {
+                    Toast.makeText(EditBudgetActivity.this, "Please enter a valid amount", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
-
     }
 
-
-
-    // Utility function to remove the currency symbol
     private String removeCurrencySymbol(String budget) {
         return budget.replace("₱", "").replace(",", "").trim();
-    }
-
-    // Utility function to format the budget with currency symbol
-    private String formatBudgetWithCurrency(double amount) {
-        return "₱" + String.format("%,.2f", amount);
     }
 }
