@@ -70,8 +70,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             context.startActivity(intent);
         });
     }
-
-
     @Override
     public int getItemCount() {
         return itemList.size();

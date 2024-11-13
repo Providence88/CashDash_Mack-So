@@ -14,6 +14,7 @@ public class EditBudgetActivity extends AppCompatActivity {
     private EditText editBudgetInput;
     private Button btnSaveBudget;
     private SharedPreferences sharedPreferences;
+    private DatabaseHelper databaseHelper; // Assuming you have a DatabaseHelper class
     private static final String PREFS_NAME = "FinanceAppPrefs";
 
     @Override
@@ -25,6 +26,7 @@ public class EditBudgetActivity extends AppCompatActivity {
         btnSaveBudget = findViewById(R.id.btnSaveBudget);
 
         sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        databaseHelper = new DatabaseHelper(this); // Initialize DatabaseHelper
 
         // Load the current budget without the currency symbol for editing
         String currentBudget = sharedPreferences.getString("budget", "₱0.00");
@@ -36,14 +38,27 @@ public class EditBudgetActivity extends AppCompatActivity {
                 String newBudget = editBudgetInput.getText().toString().replace(",", "");
                 try {
                     double budgetValue = Double.parseDouble(newBudget);
-                    String formattedBudget = String.format("₱%,.2f", budgetValue);
 
+                    // Get the current total deductions (existing bills and expenses)
+                    double totalDeductions = databaseHelper.getTotalBillsAndExpenses(); // Fetch total deductions from database
+
+                    // Calculate the new budget after considering existing bills/expenses
+                    double updatedBudget = budgetValue - totalDeductions;
+
+                    // Format the updated budget
+                    String formattedBudget = String.format("₱%,.2f", updatedBudget);
+
+                    // Save the updated budget in SharedPreferences
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("budget", formattedBudget);
                     editor.apply();
 
                     setResult(RESULT_OK);
                     finish();
+
+                    // Optionally, notify the user about the updated budget
+                    Toast.makeText(EditBudgetActivity.this, "Budget updated successfully", Toast.LENGTH_SHORT).show();
+
                 } catch (NumberFormatException e) {
                     Toast.makeText(EditBudgetActivity.this, "Please enter a valid amount", Toast.LENGTH_SHORT).show();
                 }

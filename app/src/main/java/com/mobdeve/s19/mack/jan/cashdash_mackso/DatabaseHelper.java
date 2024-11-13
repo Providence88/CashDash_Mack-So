@@ -206,4 +206,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return rowsAffected > 0;
     }
 
+
+    public double getTotalBillsAndExpenses() {
+        double total = 0.0;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Calculate total from bills
+        Cursor billCursor = db.rawQuery("SELECT SUM(" + COLUMN_BILL_AMOUNT + ") FROM " + TABLE_BILLS, null);
+        if (billCursor.moveToFirst()) {
+            total += billCursor.getDouble(0);  // Add the sum of bill amounts
+        }
+        billCursor.close();
+
+        // Calculate total from expenses
+        Cursor expenseCursor = db.rawQuery("SELECT SUM(" + COLUMN_EXPENSE_AMOUNT + ") FROM " + TABLE_EXPENSES, null);
+        if (expenseCursor.moveToFirst()) {
+            total += expenseCursor.getDouble(0);  // Add the sum of expense amounts
+        }
+        expenseCursor.close();
+
+        db.close();
+        return total;
+    }
+
+
 }
