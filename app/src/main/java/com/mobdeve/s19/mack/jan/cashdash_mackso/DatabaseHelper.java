@@ -123,7 +123,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                int idIndex = cursor.getColumnIndex(COLUMN_BILL_ID); // Get the ID from the cursor
+                int idIndex = cursor.getColumnIndex(COLUMN_BILL_ID);
                 int titleIndex = cursor.getColumnIndex(COLUMN_BILL_TITLE);
                 int descriptionIndex = cursor.getColumnIndex(COLUMN_BILL_DESCRIPTION);
                 int amountIndex = cursor.getColumnIndex(COLUMN_BILL_AMOUNT);
@@ -135,7 +135,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         dateReceivedIndex >= 0 && dateDueIndex >= 0 && categoryIndex >= 0) {
 
                     Bill bill = new Bill(
-                            cursor.getInt(idIndex), // Use cursor.getInt to fetch the ID
+                            cursor.getInt(idIndex),
                             cursor.getString(titleIndex),
                             cursor.getString(descriptionIndex),
                             cursor.getDouble(amountIndex),
@@ -159,7 +159,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                int idIndex = cursor.getColumnIndex(COLUMN_EXPENSE_ID); // Get the ID from the cursor
+                int idIndex = cursor.getColumnIndex(COLUMN_EXPENSE_ID);
                 int titleIndex = cursor.getColumnIndex(COLUMN_EXPENSE_TITLE);
                 int descriptionIndex = cursor.getColumnIndex(COLUMN_EXPENSE_DESCRIPTION);
                 int amountIndex = cursor.getColumnIndex(COLUMN_EXPENSE_AMOUNT);
@@ -170,7 +170,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         dateIndex >= 0 && categoryIndex >= 0) {
 
                     Expense expense = new Expense(
-                            cursor.getInt(idIndex), // Use cursor.getInt to fetch the ID
+                            cursor.getInt(idIndex),
                             cursor.getString(titleIndex),
                             cursor.getString(descriptionIndex),
                             cursor.getDouble(amountIndex),
@@ -186,7 +186,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return expenses;
     }
 
-
     public void deleteBill(int billId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_BILLS, COLUMN_BILL_ID + " = ?", new String[]{String.valueOf(billId)});
@@ -199,5 +198,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public boolean deleteItemById(int id, boolean isBill) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String table = isBill ? TABLE_BILLS : TABLE_EXPENSES;  // Correct table names for bills and expenses
+        int rowsAffected = db.delete(table, "id = ?", new String[]{String.valueOf(id)});
+        db.close();
+        return rowsAffected > 0;
+    }
 
 }

@@ -63,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
         loadBillsData();
         setButtonColors(true);
 
-        // Use SwipeToDeleteCallback
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(itemAdapter, this));
+        // Pass SharedPreferences to SwipeToDeleteCallback
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(itemAdapter, this, sharedPreferences));
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
         btnBills.setOnClickListener(v -> {
@@ -128,7 +128,8 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Bill> bills = db.getAllBills();
         itemList.clear();
         for (Bill bill : bills) {
-            itemList.add(new Item(bill.getTitle(), "₱" + bill.getAmount(), "Due: " + bill.getDateDue(), bill.getId()));
+            // Directly use Bill here instead of Item
+            itemList.add(bill); // Add bill directly to the list
         }
         itemAdapter.notifyDataSetChanged();
     }
@@ -137,7 +138,8 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Expense> expenses = db.getAllExpenses();
         itemList.clear();
         for (Expense expense : expenses) {
-            itemList.add(new Item(expense.getTitle(), "₱" + expense.getAmount(), "Date: " + expense.getDate(), expense.getId()));
+            // Directly use Expense here instead of Item
+            itemList.add(expense); // Add expense directly to the list
         }
         itemAdapter.notifyDataSetChanged();
     }

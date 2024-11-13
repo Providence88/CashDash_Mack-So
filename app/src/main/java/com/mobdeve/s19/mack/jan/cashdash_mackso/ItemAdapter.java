@@ -27,13 +27,21 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         Item currentItem = itemList.get(position);
         holder.itemTitle.setText(currentItem.getTitle());
-        holder.itemAmount.setText(currentItem.getAmount());
+
+        // Convert the amount to a formatted string with currency symbol
+        String formattedAmount = String.format("₱%,.2f", currentItem.getAmount());
+        holder.itemAmount.setText(formattedAmount);
+
         holder.itemDueDate.setText(currentItem.getDueDate());
     }
 
     @Override
     public int getItemCount() {
         return itemList.size();
+    }
+
+    public Item getItem(int position) {
+        return itemList.get(position);
     }
 
     public void deleteItem(int position) {
