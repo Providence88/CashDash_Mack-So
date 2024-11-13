@@ -28,6 +28,7 @@
         <activity android:name=".ViewBillActivity" />
         <activity android:name=".ViewExpenseActivity" />
 
+
     </application>
 
 </manifest>

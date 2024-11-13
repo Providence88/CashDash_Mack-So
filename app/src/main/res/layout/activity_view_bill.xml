@@ -5,99 +5,91 @@
     android:background="@android:color/white">
 
     <!-- Title -->
-    <TextView
-        android:id="@+id/billTitleTextView"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/etBillTitle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Bill Title"
         android:textSize="24sp"
         android:textColor="@android:color/black"
         android:textStyle="bold"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:focusable="false"
+        android:clickable="false" />
 
     <!-- Description -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Description:"
-        android:layout_below="@id/billTitleTextView"
-        android:layout_marginTop="16dp" />
-
-    <TextView
-        android:id="@+id/billDescriptionTextView"
+    <EditText
+        android:id="@+id/etBillDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/billTitleTextView"
+        android:text="Bill Description"
+        android:textSize="16sp"
+        android:layout_below="@id/etBillTitle"
         android:layout_marginTop="16dp"
         android:padding="8dp"
-        android:background="@drawable/edittext_custom_border" />
+        android:background="@drawable/edittext_custom_border"
+        android:focusable="false"
+        android:clickable="false" />
 
     <!-- Amount -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Amount:"
-        android:layout_below="@id/billDescriptionTextView"
-        android:layout_marginTop="12dp" />
-
-    <TextView
-        android:id="@+id/billAmountTextView"
+    <EditText
+        android:id="@+id/etBillAmount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/billDescriptionTextView"
+        android:text="₱1000.00"
+        android:textSize="16sp"
+        android:inputType="none"
+        android:layout_below="@id/etBillDescription"
         android:layout_marginTop="12dp"
         android:padding="8dp"
-        android:background="@drawable/edittext_custom_border" />
+        android:background="@drawable/edittext_custom_border"
+        android:focusable="false"
+        android:clickable="false" />
 
     <!-- Date Received -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Date Received:"
-        android:layout_below="@id/billAmountTextView"
-        android:layout_marginTop="12dp" />
-
-    <TextView
-        android:id="@+id/billDateReceivedTextView"
+    <EditText
+        android:id="@+id/etDateReceived"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/billAmountTextView"
+        android:text="2024-11-01"
+        android:textSize="16sp"
+        android:inputType="none"
+        android:layout_below="@id/etBillAmount"
         android:layout_marginTop="12dp"
         android:padding="8dp"
-        android:background="@drawable/edittext_custom_border" />
+        android:background="@drawable/edittext_custom_border"
+        android:focusable="false"
+        android:clickable="false" />
 
     <!-- Date Due -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Date Due:"
-        android:layout_below="@id/billDateReceivedTextView"
-        android:layout_marginTop="12dp" />
-
-    <TextView
-        android:id="@+id/billDateDueTextView"
+    <EditText
+        android:id="@+id/etDateDue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/billDateReceivedTextView"
+        android:text="2024-11-15"
+        android:textSize="16sp"
+        android:inputType="none"
+        android:layout_below="@id/etDateReceived"
         android:layout_marginTop="12dp"
         android:padding="8dp"
-        android:background="@drawable/edittext_custom_border" />
+        android:background="@drawable/edittext_custom_border"
+        android:focusable="false"
+        android:clickable="false" />
 
     <!-- Category -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Category:"
-        android:layout_below="@id/billDateDueTextView"
-        android:layout_marginTop="12dp" />
-
-    <TextView
-        android:id="@+id/billCategoryTextView"
+    <EditText
+        android:id="@+id/etCategory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/billDateDueTextView"
+        android:text="Category Name"
+        android:textSize="16sp"
+        android:inputType="none"
+        android:layout_below="@id/etDateDue"
         android:layout_marginTop="12dp"
         android:padding="8dp"
-        android:background="@drawable/edittext_custom_border" />
+        android:background="@drawable/edittext_custom_border"
+        android:focusable="false"
+        android:clickable="false" />
+
 </RelativeLayout>

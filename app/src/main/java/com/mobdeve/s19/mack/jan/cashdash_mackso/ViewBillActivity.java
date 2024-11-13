@@ -1,27 +1,26 @@
 package com.mobdeve.s19.mack.jan.cashdash_mackso;
 
 import android.os.Bundle;
-import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
+import android.widget.EditText;
 import android.content.Intent;
-
+import androidx.appcompat.app.AppCompatActivity;
 
 public class ViewBillActivity extends AppCompatActivity {
 
-    private TextView titleTextView, amountTextView, descriptionTextView, dateReceivedTextView, dateDueTextView, categoryTextView;
+    private EditText titleEditText, amountEditText, descriptionEditText, dateReceivedEditText, dateDueEditText, categoryEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_bill);
 
-        // Initialize TextViews
-        titleTextView = findViewById(R.id.billTitleTextView);
-        amountTextView = findViewById(R.id.billAmountTextView);
-        descriptionTextView = findViewById(R.id.billDescriptionTextView);
-        dateReceivedTextView = findViewById(R.id.billDateReceivedTextView);
-        dateDueTextView = findViewById(R.id.billDateDueTextView);
-        categoryTextView = findViewById(R.id.billCategoryTextView);
+        // Initialize EditTexts (from the new XML layout)
+        titleEditText = findViewById(R.id.etBillTitle);
+        amountEditText = findViewById(R.id.etBillAmount);
+        descriptionEditText = findViewById(R.id.etBillDescription);
+        dateReceivedEditText = findViewById(R.id.etDateReceived);
+        dateDueEditText = findViewById(R.id.etDateDue);
+        categoryEditText = findViewById(R.id.etCategory);
 
         // Retrieve the data passed from the ItemAdapter
         Intent intent = getIntent();
@@ -32,12 +31,12 @@ public class ViewBillActivity extends AppCompatActivity {
         String dateDue = intent.getStringExtra("item_dateDue");
         String category = intent.getStringExtra("item_category");
 
-        // Set the data in the TextViews
-        titleTextView.setText(title);
-        amountTextView.setText(String.format("₱%.2f", amount));
-        descriptionTextView.setText(description);
-        dateReceivedTextView.setText(dateReceived);
-        dateDueTextView.setText(dateDue);
-        categoryTextView.setText(category);
+        // Set the data in the EditTexts (the text will be displayed, but not editable)
+        titleEditText.setText(title);
+        amountEditText.setText(String.format("₱%.2f", amount));
+        descriptionEditText.setText(description);
+        dateReceivedEditText.setText(dateReceived);
+        dateDueEditText.setText(dateDue);
+        categoryEditText.setText(category);
     }
 }

@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
@@ -13,11 +15,13 @@ import java.util.ArrayList;
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
 
     private Context context;
-    private ArrayList<Item> itemList;// Store the context to start the new activity
+    private ArrayList<Item> itemList;  // Store the context to start the new activity
+    private DatabaseHelper databaseHelper;  // Add a reference to DatabaseHelper
 
     public ItemAdapter(Context context, ArrayList<Item> itemList) {
         this.context = context;
         this.itemList = itemList;
+        this.databaseHelper = new DatabaseHelper(context);  // Initialize DatabaseHelper
     }
 
     @NonNull
@@ -34,6 +38,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
         holder.itemTitle.setText(item.getTitle());
         holder.itemAmount.setText(String.format("₱%.2f", item.getAmount()));
+        holder.itemDueDate.setText(item.getDueDate()); // For Bill or Expense
 
         // Handle the click event
         holder.itemView.setOnClickListener(v -> {
@@ -65,7 +70,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
             context.startActivity(intent);
         });
     }
-
 
 
     @Override
