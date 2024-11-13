@@ -25,6 +25,9 @@
         <activity android:name=".AddBillActivity" />
         <activity android:name=".AddExpenseActivity" />
         <activity android:name=".EditBudgetActivity" />
+        <activity android:name=".ViewBillActivity" />
+        <activity android:name=".ViewExpenseActivity" />
+
     </application>
 
 </manifest>

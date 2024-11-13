@@ -1,6 +1,8 @@
 package com.mobdeve.s19.mack.jan.cashdash_mackso;
 
-public class Bill extends Item {
+import java.io.Serializable;
+
+public class Bill extends Item implements Serializable {
     private String description;
     private String dateReceived;
     private String dateDue;

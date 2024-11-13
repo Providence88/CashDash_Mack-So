@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnBills, btnExpenses, btnEditBudget;
     private FloatingActionButton btnAddNew;
     private RecyclerView recyclerView;
-    private ItemAdapter itemAdapter;
+    private ItemAdapter itemAdapter;  // Class-level initialization
     private ArrayList<Item> itemList;
     private View overlay;
     private LinearLayout addPanel;
@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         db = new DatabaseHelper(this);
 
+        // Initialize views
         userGreeting = findViewById(R.id.userGreeting);
         budgetText = findViewById(R.id.budgetText);
         btnBills = findViewById(R.id.btnViewBills);
@@ -51,15 +52,19 @@ public class MainActivity extends AppCompatActivity {
         btnAddExpense = findViewById(R.id.btnAddExpense);
         sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
 
+        // Set user greeting
         String userName = sharedPreferences.getString("userName", "User");
         userGreeting.setText("Hello, " + userName);
+
         updateBudgetDisplay();  // Initially set budget display
 
+        // Initialize RecyclerView and ItemAdapter
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         itemList = new ArrayList<>();
-        itemAdapter = new ItemAdapter(itemList);
-        recyclerView.setAdapter(itemAdapter);
+        itemAdapter = new ItemAdapter(this, itemList); // Proper initialization
+        recyclerView.setAdapter(itemAdapter); // Set the adapter to RecyclerView
 
+        // Load data into RecyclerView
         loadBillsData();
         setButtonColors(true);
 
@@ -67,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new SwipeToDeleteCallback(itemAdapter, this, sharedPreferences));
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
+        // Set onClick listeners for the buttons
         btnBills.setOnClickListener(v -> {
             isViewingBills = true;
             toggleView(true);
@@ -128,20 +134,18 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Bill> bills = db.getAllBills();
         itemList.clear();
         for (Bill bill : bills) {
-            // Directly use Bill here instead of Item
             itemList.add(bill); // Add bill directly to the list
         }
-        itemAdapter.notifyDataSetChanged();
+        itemAdapter.notifyDataSetChanged();  // Notify adapter to refresh the view
     }
 
     private void loadExpensesData() {
         ArrayList<Expense> expenses = db.getAllExpenses();
         itemList.clear();
         for (Expense expense : expenses) {
-            // Directly use Expense here instead of Item
             itemList.add(expense); // Add expense directly to the list
         }
-        itemAdapter.notifyDataSetChanged();
+        itemAdapter.notifyDataSetChanged();  // Notify adapter to refresh the view
     }
 
     // Method to retrieve and update budget from SharedPreferences

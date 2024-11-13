@@ -1,5 +1,7 @@
 package com.mobdeve.s19.mack.jan.cashdash_mackso;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
-    private ArrayList<Item> itemList;
 
-    public ItemAdapter(ArrayList<Item> itemList) {
+    private Context context;
+    private ArrayList<Item> itemList;// Store the context to start the new activity
+
+    public ItemAdapter(Context context, ArrayList<Item> itemList) {
+        this.context = context;
         this.itemList = itemList;
     }
 
@@ -25,15 +30,43 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        Item currentItem = itemList.get(position);
-        holder.itemTitle.setText(currentItem.getTitle());
+        final Item item = itemList.get(position);
 
-        // Convert the amount to a formatted string with currency symbol
-        String formattedAmount = String.format("₱%,.2f", currentItem.getAmount());
-        holder.itemAmount.setText(formattedAmount);
+        holder.itemTitle.setText(item.getTitle());
+        holder.itemAmount.setText(String.format("₱%.2f", item.getAmount()));
 
-        holder.itemDueDate.setText(currentItem.getDueDate());
+        // Handle the click event
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent;
+            if (item instanceof Bill) {
+                Bill bill = (Bill) item; // Cast to Bill
+                intent = new Intent(context, ViewBillActivity.class);
+                // Pass all the necessary data for Bill
+                intent.putExtra("item_id", bill.getId());
+                intent.putExtra("item_title", bill.getTitle());
+                intent.putExtra("item_amount", bill.getAmount());
+                intent.putExtra("item_description", bill.getDescription());
+                intent.putExtra("item_dateReceived", bill.getDateReceived());
+                intent.putExtra("item_dateDue", bill.getDateDue());
+                intent.putExtra("item_category", bill.getCategory());
+            } else if (item instanceof Expense) {
+                Expense expense = (Expense) item; // Cast to Expense
+                intent = new Intent(context, ViewExpenseActivity.class);
+                // Pass all the necessary data for Expense
+                intent.putExtra("item_id", expense.getId());
+                intent.putExtra("item_title", expense.getTitle());
+                intent.putExtra("item_amount", expense.getAmount());
+                intent.putExtra("item_description", expense.getDescription());
+                intent.putExtra("item_date", expense.getDate());
+                intent.putExtra("item_category", expense.getCategory());
+            } else {
+                return; // Return if it's not a Bill or Expense (fallback)
+            }
+            context.startActivity(intent);
+        });
     }
+
+
 
     @Override
     public int getItemCount() {
