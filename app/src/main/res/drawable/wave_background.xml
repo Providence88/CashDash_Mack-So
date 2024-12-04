@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background Color Layer -->
+    <item>
+        <shape>
+            <solid android:color="@android:color/white" />
+        </shape>
+    </item>
+
+    <!-- Wave Layer -->
+    <item>
+        <shape>
+            <size android:width="600dp" android:height="200dp" /> <!-- Ensure size is set -->
+            <path
+                android:fillColor="@color/primaryColor"
+                android:pathData="M 0,200 C 100,150 200,250 300,200 C 400,150 500,250 600,200 L 600,100 L 0,100 Z" />
+        </shape>
+    </item>
+</layer-list>

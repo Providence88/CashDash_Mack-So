@@ -3,4 +3,5 @@
     <item android:state_pressed="true" android:drawable="@color/primaryDarkColor" />
     <item android:state_enabled="false" android:drawable="@color/accentColor" />
     <item android:drawable="@color/primaryColor" />
+    <item android:radius="12dp" />
 </selector>

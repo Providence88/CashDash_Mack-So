@@ -3,6 +3,7 @@
     <style name="Base.Theme.CashDashMackSo" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/primaryColor</item>
+
     </style>
 
     <style name="Theme.CashDashMackSo" parent="Base.Theme.CashDashMackSo" />

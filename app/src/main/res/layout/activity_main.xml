@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    android:background="@android:color/white">
+    android:background="@drawable/wave">
 
     <!-- Hello User Greeting -->
     <TextView
@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello, Jan"
+        android:fontFamily="@font/poppins_bold"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/primaryDarkColor" />
@@ -23,16 +24,18 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/userGreeting"
         android:layout_marginTop="20dp"
-        android:padding="10dp"
-        android:background="@color/primaryDarkColor">
+        android:padding="20dp"
+        android:background="@drawable/rounded_menu_panel">
 
         <TextView
             android:id="@+id/budgetText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_medium"
             android:text="₱0.00"
             android:textColor="@android:color/white"
-            android:textSize="30sp" />
+            android:textSize="30sp"
+            android:textStyle="bold"/>
 
         <!-- Edit Budget Button -->
         <androidx.appcompat.widget.AppCompatButton
@@ -42,6 +45,7 @@
             android:layout_alignParentEnd="true"
             android:paddingLeft="12sp"
             android:text="Edit"
+            android:fontFamily="@font/poppins_medium"
             android:textColor="@android:color/holo_green_dark"
             android:drawableLeft="@android:drawable/ic_menu_edit"
             android:background="@drawable/rounded_button_nocolor"/>
@@ -74,20 +78,26 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="View Bills"
+            android:text="Bills"
+            android:fontFamily="@font/poppins_semibold"
+            android:textSize="18sp"
             android:layout_marginEnd="8dp"
-            android:textColor="@android:color/black"
-            android:background="@drawable/rounded_button"/>
+            android:textColor="@android:color/white"
+            android:background="@drawable/rounded_button"
+            android:textAllCaps="false"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnViewExpenses"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="View Expenses"
+            android:text="Expenses"
+            android:fontFamily="@font/poppins_semibold"
+            android:textSize="18sp"
             android:layout_marginStart="8dp"
-            android:textColor="@android:color/black"
-            android:background="@drawable/rounded_button"/>
+            android:textColor="@android:color/white"
+            android:background="@drawable/rounded_button"
+            android:textAllCaps="false"/>
     </LinearLayout>
 
     <!-- Notifications Box (Expenses/Bills) -->
@@ -111,7 +121,8 @@
         android:layout_marginBottom="16dp"
         android:src="@android:drawable/ic_input_add"
         android:contentDescription="Add Button"
-        app:backgroundTint="@color/primaryDarkColor"/>
+        app:backgroundTint="@color/primaryDarkColor"
+        app:tint="@android:color/white"/>
 
     <!-- Background Overlay (Initially hidden) -->
     <View
