@@ -4,8 +4,11 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +19,7 @@ public class AddBillActivity extends AppCompatActivity {
 
     private EditText etBillTitle, etBillDescription, etBillAmount, etDateReceived, etDateDue;
     private Button btnSaveBill, btnDeleteBill;
+    private Spinner spinnerCategory;  // Spinner for category selection
     private SharedPreferences sharedPreferences;
     private int year, month, day;
     private Calendar calendar;
@@ -33,6 +37,7 @@ public class AddBillActivity extends AppCompatActivity {
         etDateDue = findViewById(R.id.etDateDue);
         btnSaveBill = findViewById(R.id.btnSaveBill);
         btnDeleteBill = findViewById(R.id.btnDelete);
+        spinnerCategory = findViewById(R.id.spinnerCategory);  // Initialize Spinner for category
 
         // Initialize SharedPreferences
         sharedPreferences = getSharedPreferences("BudgetPrefs", MODE_PRIVATE);
@@ -48,6 +53,12 @@ public class AddBillActivity extends AppCompatActivity {
 
         // Set DatePickerDialog for Date Due
         etDateDue.setOnClickListener(v -> showDatePickerDialog(etDateDue));
+
+        // Set up category spinner (dropdown)
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.bill_categories, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerCategory.setAdapter(adapter);
 
         // Set save button functionality
         btnSaveBill.setOnClickListener(v -> saveBill());
@@ -73,6 +84,7 @@ public class AddBillActivity extends AppCompatActivity {
         String amountStr = etBillAmount.getText().toString().trim();
         String dateReceived = etDateReceived.getText().toString().trim();
         String dateDue = etDateDue.getText().toString().trim();
+        String category = spinnerCategory.getSelectedItem().toString();  // Get selected category
 
         if (title.isEmpty() || description.isEmpty() || amountStr.isEmpty() || dateReceived.isEmpty() || dateDue.isEmpty()) {
             Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
@@ -81,8 +93,8 @@ public class AddBillActivity extends AppCompatActivity {
 
         double amount = Double.parseDouble(amountStr);
 
-        // Create a new Bill object with a default id of 0 (or handle id assignment in DatabaseHelper)
-        Bill newBill = new Bill(0, title, description, amount, dateReceived, dateDue, "Default");
+        // Create a new Bill object with the selected category
+        Bill newBill = new Bill(0, title, description, amount, dateReceived, dateDue, category);
 
         // Save to database
         DatabaseHelper db = new DatabaseHelper(this);
@@ -90,6 +102,10 @@ public class AddBillActivity extends AppCompatActivity {
 
         if (billId != -1) { // Check if saving was successful
             deductFromBudget(amount); // Deduct from budget only after successful save
+
+            // Trigger alarm/notification after bill is saved
+            AlarmScheduler.scheduleAlarm(this, (int) billId, title, dateDue, category, String.valueOf(amount));
+
             Toast.makeText(this, "Bill added successfully!", Toast.LENGTH_SHORT).show();
 
             Intent resultIntent = new Intent();

@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
-import android.database.sqlite.SQLiteDatabase;
 
 public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
 
@@ -48,7 +47,7 @@ public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
                         if (isDeletedFromDb) {
                             // Remove item from the adapter's list
                             adapter.deleteItem(position);
-                            updateBudget(amountToRefund);
+                            updateBudget(amountToRefund); // Pass amount to update budget
                         } else {
                             adapter.notifyItemChanged(position); // Re-add item to the list if database deletion failed
                         }
@@ -58,7 +57,7 @@ public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
                         if (isDeletedFromDb) {
                             // Remove item from the adapter's list
                             adapter.deleteItem(position);
-                            updateBudget(amountToRefund);
+                            updateBudget(amountToRefund); // Pass amount to update budget
                         } else {
                             adapter.notifyItemChanged(position); // Re-add item to the list if database deletion failed
                         }
@@ -71,7 +70,7 @@ public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
                 .show();
     }
 
-    // This method is used to update the budget after deleting an item
+    // This method now accepts a parameter for the amount to refund
     private void updateBudget(double amountToRefund) {
         double currentBudget = Double.parseDouble(sharedPreferences.getString("budget", "₱0.00").replace("₱", "").replace(",", ""));
         double newBudget = currentBudget + amountToRefund;
@@ -83,7 +82,8 @@ public class SwipeToDeleteCallback extends ItemTouchHelper.SimpleCallback {
 
         // Update the budget display in MainActivity
         if (context instanceof MainActivity) {
-            ((MainActivity) context).updateBudgetDisplay(newBudget);
+            String formattedBudget = String.format("₱%,.2f", newBudget); // Format as string with Peso symbol
+            ((MainActivity) context).updateBudgetDisplay(); // Pass the formatted string
         }
     }
 }

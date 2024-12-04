@@ -50,10 +50,9 @@
     <!-- Due Date Notifications Tab -->
     <TextView
         android:id="@+id/dueDateNotification"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_below="@id/budgetPanel"
-        android:text="Due Date Notifications"
         android:textSize="20sp"
         android:textColor="@android:color/black"
         android:layout_marginTop="16dp"

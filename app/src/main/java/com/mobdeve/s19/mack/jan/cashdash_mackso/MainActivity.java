@@ -1,5 +1,10 @@
 package com.mobdeve.s19.mack.jan.cashdash_mackso;
 
+import android.os.Build;
+import android.provider.Settings;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -13,7 +18,10 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnBills, btnExpenses, btnEditBudget;
     private FloatingActionButton btnAddNew;
     private RecyclerView recyclerView;
-    private ItemAdapter itemAdapter;  // Class-level initialization
+    private ItemAdapter itemAdapter;
     private ArrayList<Item> itemList;
     private View overlay;
     private LinearLayout addPanel;
@@ -30,13 +38,20 @@ public class MainActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "FinanceAppPrefs";
     private boolean isViewingBills = true;
     private DatabaseHelper db;
+    private AlarmManager alarmManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Create the notification channel
+        NotificationUtils.createNotificationChannel(this);
+
         db = new DatabaseHelper(this);
+
+        // Initialize AlarmManager
+        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
         // Initialize views
         userGreeting = findViewById(R.id.userGreeting);
@@ -61,8 +76,8 @@ public class MainActivity extends AppCompatActivity {
         // Initialize RecyclerView and ItemAdapter
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         itemList = new ArrayList<>();
-        itemAdapter = new ItemAdapter(this, itemList); // Proper initialization
-        recyclerView.setAdapter(itemAdapter); // Set the adapter to RecyclerView
+        itemAdapter = new ItemAdapter(this, itemList);
+        recyclerView.setAdapter(itemAdapter);
 
         // Load data into RecyclerView
         loadBillsData();
@@ -134,22 +149,24 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Bill> bills = db.getAllBills();
         itemList.clear();
         for (Bill bill : bills) {
-            itemList.add(bill); // Add bill directly to the list
+            itemList.add(bill);
+            scheduleNotification(bill.getTitle(), String.valueOf(bill.getAmount()), bill.getCategory(), bill.getDueDate());
         }
-        itemAdapter.notifyDataSetChanged();  // Notify adapter to refresh the view
+        itemAdapter.notifyDataSetChanged();
     }
 
     private void loadExpensesData() {
         ArrayList<Expense> expenses = db.getAllExpenses();
         itemList.clear();
         for (Expense expense : expenses) {
-            itemList.add(expense); // Add expense directly to the list
+            itemList.add(expense);
+            scheduleNotification(expense.getTitle(), String.valueOf(expense.getAmount()), expense.getCategory(), expense.getDueDate());
         }
-        itemAdapter.notifyDataSetChanged();  // Notify adapter to refresh the view
+        itemAdapter.notifyDataSetChanged();
     }
 
-    // Method to retrieve and update budget from SharedPreferences
-    private void updateBudgetDisplay() {
+    public void updateBudgetDisplay() {
+        // Fetch the updated budget from SharedPreferences
         String budget = sharedPreferences.getString("budget", "₱0.00");
         try {
             double parsedBudget = Double.parseDouble(budget.replace("₱", "").replace(",", ""));
@@ -157,11 +174,6 @@ public class MainActivity extends AppCompatActivity {
         } catch (NumberFormatException e) {
             budgetText.setText("₱0.00");
         }
-    }
-
-    // Overloaded method to directly set new budget value
-    public void updateBudgetDisplay(double newBudget) {
-        budgetText.setText(String.format("₱%,.2f", newBudget));
     }
 
     private void toggleView(boolean isBillsSelected) {
@@ -183,5 +195,54 @@ public class MainActivity extends AppCompatActivity {
     private void toggleAddPanel(boolean isVisible) {
         addPanel.setVisibility(isVisible ? View.VISIBLE : View.GONE);
         overlay.setVisibility(isVisible ? View.VISIBLE : View.GONE);
+    }
+
+    private void scheduleNotification(String title, String amount, String category, String dueDate) {
+        long triggerTime = System.currentTimeMillis() + 1000; // Trigger the alarm 1 second after the entry is created
+        if (triggerTime == -1 || triggerTime <= System.currentTimeMillis()) {
+            return;
+        }
+
+        // Check if exact alarm permission is granted
+        if (alarmManager != null && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !alarmManager.canScheduleExactAlarms()) {
+            requestExactAlarmPermission();
+            return;
+        }
+
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        intent.putExtra("title", title);
+        intent.putExtra("amount", amount);
+        intent.putExtra("category", category);
+        intent.putExtra("dueDate", dueDate);
+
+        int requestCode = (title + dueDate).hashCode();
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                this,
+                requestCode,
+                intent,
+                PendingIntent.FLAG_IMMUTABLE // Use FLAG_IMMUTABLE since you don't need to modify the PendingIntent
+        );
+
+        alarmManager.setExact(
+                AlarmManager.RTC_WAKEUP,
+                triggerTime,
+                pendingIntent
+        );
+    }
+
+    private void requestExactAlarmPermission() {
+        Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+        startActivity(intent);
+    }
+
+    private long parseDueDateToMillis(String dueDate) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            Date date = sdf.parse(dueDate);
+            return date != null ? date.getTime() : -1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 }

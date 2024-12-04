@@ -35,7 +35,14 @@ public class EditBudgetActivity extends AppCompatActivity {
         btnSaveBudget.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String newBudget = editBudgetInput.getText().toString().replace(",", "");
+                String newBudget = editBudgetInput.getText().toString().replace(",", "").trim();
+
+                // Check if the user input is empty or invalid
+                if (newBudget.isEmpty()) {
+                    Toast.makeText(EditBudgetActivity.this, "Please enter a valid budget amount", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 try {
                     double budgetValue = Double.parseDouble(newBudget);
 
@@ -53,6 +60,7 @@ public class EditBudgetActivity extends AppCompatActivity {
                     editor.putString("budget", formattedBudget);
                     editor.apply();
 
+                    // Notify MainActivity (if needed) and finish
                     setResult(RESULT_OK);
                     finish();
 
